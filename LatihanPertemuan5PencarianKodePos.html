@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* CSS untuk tampilan sederhana */
+    .search-container {
+      margin: 20px;
+    }
+    input, select {
+      margin-right: 10px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pencarian Kode Pos Indonesia</h1>
+  <div class="search-container">
+    <label for="provinsi">Provinsi:</label>
+    <select id="provinsi">
+      <option value="Jawa Barat">Jawa Barat</option>
+      <option value="Jawa Timur">Jawa Timur</option>
+      <!-- Tambahkan opsi provinsi lainnya -->
+    </select>
+    <label for="kabupaten-kota">Kabupaten/Kota:</label>
+    <input type="text" id="kabupaten-kota">
+    <label for="kecamatan">Kecamatan:</label>
+    <input type="text" id="kecamatan">
+    <button onclick="cariKodePos()">Cari</button>
+  </div>
+  <div id="result">
+    <!-- Hasil pencarian kode pos akan ditampilkan di sini -->
+  </div>
+
+  <script>
+    // Data kode pos sederhana
+    const kodePosData = [
+      { provinsi: 'Jawa Barat', kabupatenKota: 'Bandung', kecamatan: 'Cimahi', kodePos: '40500', informasiDaerah: 'Informasi Cimahi' },
+      { provinsi: 'Jawa Timur', kabupatenKota: 'Surabaya', kecamatan: 'Sukolilo', kodePos: '60112', informasiDaerah: 'Informasi Sukolilo' },
+      // Tambahkan data kode pos lainnya...
+    ];
+
+    // Fungsi untuk mencari kode pos
+    function cariKodePos() {
+      const provinsi = document.getElementById('provinsi').value;
+      const kabupatenKota = document.getElementById('kabupaten-kota').value;
+      const kecamatan = document.getElementById('kecamatan').value;
+      const resultElement = document.getElementById('result');
+      let resultHTML = '<h2>Hasil Pencarian Kode Pos:</h2>';
+
+      for (let i = 0; i < kodePosData.length; i++) {
+        const data = kodePosData[i];
+        if (
+          data.provinsi === provinsi &&
+          data.kabupatenKota === kabupatenKota &&
+          data.kecamatan === kecamatan
+        ) {
+          resultHTML += `<p>Kode Pos: ${data.kodePos}</p>`;
+          resultHTML += `<p>Informasi Daerah: ${data.informasiDaerah}</p>`;
+          resultElement.innerHTML = resultHTML;
+          return;
+        }
+      }
+      resultHTML += '<p>Data kode pos tidak ditemukan.</p>';
+      resultElement.innerHTML = resultHTML;
+    }
+  </script>
+</body>
+</html>
